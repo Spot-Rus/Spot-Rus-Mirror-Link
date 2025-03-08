@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Next-Gen Digital Ecosystem</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url('img/background2.webp');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            padding: 6rem 0;
+            position: relative;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+        }
+
+        .section-title {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            background: linear-gradient(45deg, #1DB954, #2ee59d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Hero Section */
+        .about-hero {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+        }
+
+        .particle-network {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            padding: 2rem;
+            position: relative;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-title {
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #1DB954, #2ee59d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(29, 185, 84, 0.3);
+        }
+
+        .hero-subtitle {
+            color: #ffffff;
+            font-size: 1.8rem;
+            max-width: 800px;
+            margin: 2rem auto;
+            position: relative;
+            padding: 2rem;
+            border: 2px solid rgba(29, 185, 84, 0.3);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        /* Platform Section */
+        .platform-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 4rem;
+            padding: 6rem 2rem;
+            perspective: 1000px;
+        }
+
+        .platform-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s ease;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .platform-card:hover {
+            transform: translateY(-10px) rotateX(10deg) rotateY(10deg);
+            box-shadow: 0 25px 50px rgba(29, 185, 84, 0.2);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .platform-icon {
+            font-size: 4rem;
+            color: #1DB954;
+            margin-bottom: 2rem;
+            filter: drop-shadow(0 0 10px rgba(29, 185, 84, 0.3));
+        }
+
+        .coming-soon-badge {
+            position: absolute;
+            top: 20px;
+            right: -35px;
+            background: #1DB954;
+            color: white;
+            padding: 0.8rem 3rem;
+            transform: rotate(45deg);
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            text-transform: uppercase;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-top: 2rem;
+        }
+
+        .features-list li {
+            padding: 0.5rem 0;
+            padding-left: 2rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .features-list li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: #1DB954;
+        }
+
+        /* Timeline Section */
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 5rem auto;
+            padding: 2rem 0;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background: rgba(29, 185, 84, 0.3);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+            box-shadow: 0 0 20px rgba(29, 185, 84, 0.5);
+        }
+
+        .timeline-item {
+            padding: 20px 40px;
+            position: relative;
+            width: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            margin: 2rem 0;
+            border-radius: 15px;
+            transition: all 0.5s ease;
+            opacity: 0;
+            transform: translateX(-100px);
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .timeline-item h3 {
+            color: #1DB954;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-item.left {
+            left: 0;
+        }
+
+        .timeline-item.right {
+            left: 50%;
+        }
+
+        /* Creator Section */
+        .creator-section {
+            position: relative;
+            padding: 8rem 2rem;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+        }
+
+        .creator-video {
+            width: 100%;
+            max-width: 1000px;
+            height: 500px;
+            margin: 3rem auto;
+            border-radius: 25px;
+            overflow: hidden;
+            position: relative;
+            border: 2px solid rgba(29, 185, 84, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .video-overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(18, 18, 18, 0.9), rgba(0, 0, 0, 0.7));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .countdown {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, #1DB954, #2ee59d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .progress-bar {
+            width: 300px;
+            height: 4px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 2px;
+            margin: 2rem 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            width: 65%;
+            height: 100%;
+            background: linear-gradient(90deg, #1DB954, #2ee59d);
+            transition: width 0.5s ease;
+        }
+
+        .cta-button {
+            padding: 1rem 2rem;
+            background: #1DB954;
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(29, 185, 84, 0.4);
+        }
+
+        /* Particles */
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(29, 185, 84, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            transition: transform 0.2s;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .platform-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .timeline::after {
+                left: 31px;
+            }
+
+            .timeline-item {
+                width: calc(100% - 60px);
+                margin-left: 45px;
+            }
+
+            .timeline-item.right {
+                left: 0;
+            }
+
+            .creator-video {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+
+        <style>
+            /* Header and Navigation Bar Styles */
+            header {
+                background: rgba(0, 0, 0, 0.95);
+                padding: 1.2rem 2rem;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                z-index: 1000;
+                backdrop-filter: blur(12px);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            }
+        
+            .header-container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                max-width: 1200px;
+                margin: 0 auto;
+                position: relative;
+            }
+        
+            .logo {
+                width: 45px;
+                height: auto;
+                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                filter: drop-shadow(0 0 8px rgba(29, 185, 84, 0.3));
+            }
+        
+            .logo:hover {
+                transform: scale(1.08) rotate(5deg);
+                filter: drop-shadow(0 0 12px rgba(29, 185, 84, 0.5));
+            }
+        
+            nav {
+                position: relative;
+            }
+        
+            .nav-links {
+                list-style: none;
+                display: flex;
+                gap: 2.5rem;
+                margin: 0;
+                padding: 0;
+            }
+        
+            .nav-links li {
+                position: relative;
+            }
+        
+            .nav-links a {
+                color: #fff;
+                text-decoration: none;
+                font-size: 1rem;
+                font-weight: 600;
+                padding: 0.6rem 1.2rem;
+                border-radius: 8px;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                position: relative;
+                letter-spacing: 0.3px;
+            }
+        
+            .nav-links a::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(135deg, #1DB954, #1ed760);
+                border-radius: 8px;
+                opacity: 0;
+                transition: all 0.3s ease;
+                z-index: -1;
+            }
+        
+            .nav-links a:hover::before {
+                opacity: 0.1;
+                transform: scale(1.05);
+            }
+        
+            .nav-links a::after {
+                content: '';
+                position: absolute;
+                bottom: -3px;
+                left: 50%;
+                width: 0;
+                height: 2px;
+                background: linear-gradient(90deg, #1DB954, #1ed760);
+                transition: all 0.3s ease;
+                transform: translateX(-50%);
+                box-shadow: 0 0 8px rgba(29, 185, 84, 0.5);
+            }
+        
+            .nav-links a:hover::after {
+                width: 80%;
+            }
+        
+            /* Mobile Navigation Styles */
+            .menu-icon {
+                display: none;
+                font-size: 1.8rem;
+                color: #fff;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                padding: 0.5rem;
+                z-index: 1001;
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                background: linear-gradient(135deg, #1DB954, #1ed760);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+        
+            .menu-icon:hover {
+                transform: translateY(-50%) scale(1.1);
+                filter: drop-shadow(0 0 8px rgba(29, 185, 84, 0.5));
+            }
+        
+            /* Tablet and Mobile Styles */
+            @media (max-width: 768px) {
+                nav {
+                    width: 100%;
+                }
+        
+                .nav-links {
+                    display: none;
+                    flex-direction: column;
+                    position: fixed;
+                    top: 0;
+                    right: -100%;
+                    width: 75%;
+                    height: 100vh;
+                    background: rgba(0, 0, 0, 0.97);
+                    padding: 90px 2rem 2rem;
+                    backdrop-filter: blur(15px);
+                    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                    align-items: center;
+                    justify-content: flex-start;
+                    border-left: 1px solid rgba(255, 255, 255, 0.08);
+                }
+        
+                .nav-links.active {
+                    display: flex;
+                    right: 0;
+                    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+                }
+        
+                .menu-icon {
+                    display: block;
+                    position: absolute;
+                    right: 1rem;
+                    top: 50%;
+                }
+        
+                .nav-links li {
+                    width: 100%;
+                    text-align: center;
+                    margin: 1rem 0;
+                    opacity: 0;
+                    transform: translateX(20px);
+                    transition: all 0.3s ease;
+                }
+        
+                .nav-links.active li {
+                    opacity: 1;
+                    transform: translateX(0);
+                    transition-delay: 0.2s;
+                }
+        
+                .nav-links a {
+                    display: block;
+                    padding: 1rem;
+                    width: 100%;
+                    font-size: 1.1rem;
+                    color: #fff;
+                    background: linear-gradient(135deg, rgba(29, 185, 84, 0.1), rgba(30, 215, 96, 0.1));
+                    border: 1px solid rgba(29, 185, 84, 0.2);
+                    border-radius: 12px;
+                    backdrop-filter: blur(5px);
+                }
+        
+                .nav-links a:hover {
+                    background: linear-gradient(135deg, rgba(29, 185, 84, 0.2), rgba(30, 215, 96, 0.2));
+                    border-color: rgba(29, 185, 84, 0.3);
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 15px rgba(29, 185, 84, 0.2);
+                }
+        
+                /* Overlay for mobile menu */
+                .nav-overlay {
+                    display: none;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.7);
+                    z-index: 999;
+                    backdrop-filter: blur(5px);
+                    opacity: 0;
+                    transition: opacity 0.3s ease;
+                }
+        
+                .nav-overlay.active {
+                    display: block;
+                    opacity: 1;
+                }
+            }
+        
+            /* Additional tablet-specific adjustments */
+            @media (min-width: 769px) and (max-width: 1024px) {
+                .nav-links {
+                    gap: 1.5rem;
+                }
+        
+                .nav-links a {
+                    padding: 0.5rem 0.8rem;
+                    font-size: 0.95rem;
+                }
+            }
+        </style>
+        
+        <!-- Header and Navigation Bar -->
+        <header>
+            <div class="header-container">
+                <!-- Logo Section -->
+                <div class="logo-section">
+                    <img src="img/logo.png" alt="Logo" class="logo">
+                </div>
+        
+                <!-- Navigation Bar -->
+                <nav>
+                    <div class="menu-icon">&#9776;</div>
+                    <ul class="nav-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="features.html">Features</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        
+        <!-- Overlay for mobile menu -->
+        <div class="nav-overlay"></div>
+        
+        <script>
+            // Mobile Navigation Toggle with animations
+            const menuIcon = document.querySelector('.menu-icon');
+            const navLinks = document.querySelector('.nav-links');
+            const navOverlay = document.querySelector('.nav-overlay');
+            const navItems = document.querySelectorAll('.nav-links li');
+        
+            menuIcon.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                navOverlay.classList.toggle('active');
+                document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+                
+                // Animate nav items
+                if (navLinks.classList.contains('active')) {
+                    navItems.forEach((item, index) => {
+                        item.style.transitionDelay = `${0.1 * index}s`;
+                    });
+                }
+            });
+        
+            // Close mobile menu when overlay is clicked
+            navOverlay.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                navOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        
+            // Close mobile menu when a link is clicked
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    navOverlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            });
+        
+            // Close mobile menu when screen size changes to desktop
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 768) {
+                    navLinks.classList.remove('active');
+                    navOverlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        </script>
+        
+        <!-- Overlay for mobile menu -->
+        <div class="nav-overlay"></div>
+        
+        <script>
+            // Mobile Navigation Toggle
+            const menuIcon = document.querySelector('.menu-icon');
+            const navLinks = document.querySelector('.nav-links');
+            const navOverlay = document.querySelector('.nav-overlay');
+        
+            menuIcon.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                navOverlay.classList.toggle('active');
+                document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+            });
+        
+            // Close mobile menu when overlay is clicked
+            navOverlay.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                navOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        
+            // Close mobile menu when a link is clicked
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    navOverlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            });
+        
+            // Close mobile menu when screen size changes to desktop
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 768) {
+                    navLinks.classList.remove('active');
+                    navOverlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        </script>
+
+
+
+        <section class="about-hero" id="particleContainer">
+            <div class="particle-network"></div>
+            <div class="hero-content">
+                <h1 class="hero-title">Next-Gen Digital Ecosystem</h1>
+                <p class="hero-subtitle">
+                    Revolutionizing entertainment access while empowering creators through 
+                    cutting-edge technology and community-driven platforms
+                </p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Our Platforms</h2>
+                <div class="platform-grid">
+                    <div class="platform-card">
+                        <div class="coming-soon-badge">New</div>
+                        <i class="fas fa-film platform-icon"></i>
+                        <h3>Netflix Premium+</h3>
+                        <ul class="features-list">
+                            <li>4K HDR Streaming</li>
+                            <li>Localized Content Hub</li>
+                            <li>Family Sharing Plans</li>
+                        </ul>
+                    </div>
+
+                    <div class="platform-card">
+                        <div class="coming-soon-badge">2025</div>
+                        <i class="fas fa-gamepad platform-icon"></i>
+                        <h3>Steam Ultimate</h3>
+                        <ul class="features-list">
+                            <li>Exclusive Game Bundles</li>
+                            <li>Local Server Access</li>
+                            <li>Community Marketplace</li>
+                        </ul>
+                    </div>
+
+                    <div class="platform-card">
+                        <div class="coming-soon-badge">Beta</div>
+                        <i class="fas fa-users platform-icon"></i>
+                        <h3>Creator Nexus</h3>
+                        <ul class="features-list">
+                            <li>Content Monetization</li>
+                            <li>Collaboration Tools</li>
+                            <li>Global Distribution</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Our Roadmap</h2>
+                <div class="timeline">
+                    <div class="timeline-item left">
+                        <h3>Q4 2024</h3>
+                        <p>Netflix Premium+ Launch</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                    </div>
+                    <div class="timeline-item right">
+                        <h3>Q2 2025</h3>
+                        <p>Steam Ultimate Integration</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 30%"></div>
+                        </div>
+                    </div>
+                    <div class="timeline-item left">
+                        <h3>Q1 2026</h3>
+                        <p>Creator Nexus Global Expansion</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 10%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="creator-section">
+            <div class="container">
+                <h2 class="section-title">Creator Revolution</h2>
+                <div class="creator-video">
+                    <div class="video-overlay">
+                        <div class="countdown">Launching in 128 Days</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                        <button class="cta-button" onclick="openModal()">Join Early Access</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal -->
+        <div id="signupModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2>Join the Waiting List</h2>
+                <form id="creatorForm" onsubmit="handleSubmit(event)">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contentType">Type of Content You Create</label>
+                        <input type="text" id="contentType" name="contentType" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <button type="submit" class="submit-button">Join Waiting List</button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Success Modal -->
+        <div id="successModal" class="modal">
+            <div class="modal-content success-content">
+                <span class="close" onclick="closeSuccessModal()">&times;</span>
+                <div class="success-icon">✓</div>
+                <h2>Thank You!</h2>
+                <p>You've been successfully added to our waiting list. We'll contact you soon!</p>
+            </div>
+        </div>
+        
+        <style>
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            background: rgba(30, 30, 30, 0.95);
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            border: 1px solid rgba(29, 185, 84, 0.3);
+            box-shadow: 0 0 30px rgba(29, 185, 84, 0.2);
+            color: white;
+        }
+        
+        .close {
+            position: absolute;
+            right: 1rem;
+            top: 0.5rem;
+            color: #aaa;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        
+        .close:hover {
+            color: #1DB954;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #fff;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #1DB954;
+            box-shadow: 0 0 10px rgba(29, 185, 84, 0.2);
+        }
+        
+        .submit-button {
+            width: 100%;
+            padding: 1rem;
+            background: #1DB954;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-button:hover {
+            background: #1ed760;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(29, 185, 84, 0.3);
+        }
+        
+        /* Success Modal Styles */
+        .success-content {
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+        
+        .success-icon {
+            font-size: 4rem;
+            color: #1DB954;
+            margin-bottom: 1rem;
+        }
+        
+        .error {
+            border-color: #ff4444 !important;
+        }
+        
+        .error-message {
+            color: #ff4444;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+        
+        @media (max-width: 768px) {
+            .modal-content {
+                margin: 10% auto;
+                width: 95%;
+                padding: 1.5rem;
+            }
+        }
+        </style>
+        
+        <script>
+        // Modal functionality
+        function openModal() {
+            document.getElementById('signupModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal() {
+            document.getElementById('signupModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        function closeSuccessModal() {
+            document.getElementById('successModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Form validation and submission
+        function validateForm(formData) {
+            const errors = {};
+            
+            if (!formData.name.trim()) {
+                errors.name = 'Name is required';
+            }
+            
+            if (!formData.contentType.trim()) {
+                errors.contentType = 'Content type is required';
+            }
+            
+            if (!formData.phone.trim()) {
+                errors.phone = 'Phone number is required';
+            } else if (!/^\d{10}$/.test(formData.phone.replace(/\D/g, ''))) {
+                errors.phone = 'Please enter a valid 10-digit phone number';
+            }
+            
+            if (!formData.email.trim()) {
+                errors.email = 'Email is required';
+            } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+                errors.email = 'Please enter a valid email address';
+            }
+            
+            return errors;
+        }
+        
+        function showError(inputElement, message) {
+            inputElement.classList.add('error');
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.textContent = message;
+            inputElement.parentNode.appendChild(errorDiv);
+        }
+        
+        function clearErrors() {
+            document.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
+            document.querySelectorAll('.error-message').forEach(el => el.remove());
+        }
+        
+        function handleSubmit(event) {
+            event.preventDefault();
+            clearErrors();
+            
+            const formData = {
+                name: document.getElementById('name').value,
+                contentType: document.getElementById('contentType').value,
+                phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value
+            };
+            
+            const errors = validateForm(formData);
+            
+            if (Object.keys(errors).length === 0) {
+                // Form is valid, show success message
+                document.getElementById('signupModal').style.display = 'none';
+                document.getElementById('successModal').style.display = 'block';
+                
+                // Reset form
+                event.target.reset();
+                
+                // Close success modal after 3 seconds
+                setTimeout(() => {
+                    closeSuccessModal();
+                }, 3000);
+            } else {
+                // Show errors
+                for (const [field, message] of Object.entries(errors)) {
+                    const inputElement = document.getElementById(field);
+                    showError(inputElement, message);
+                }
+            }
+        }
+        
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            const signupModal = document.getElementById('signupModal');
+            const successModal = document.getElementById('successModal');
+            if (event.target === signupModal) {
+                closeModal();
+            }
+            if (event.target === successModal) {
+                closeSuccessModal();
+            }
+        }
+        </script>
+    </main>
+    <script>
+        // Interactive Particle System
+        function createParticles() {
+            const container = document.getElementById('particleContainer');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                container.appendChild(particle);
+            }
+        }
+
+        // Mouse interaction with particles
+        document.addEventListener('mousemove', (e) => {
+            const particles = document.querySelectorAll('.particle');
+            particles.forEach(particle => {
+                const rect = particle.getBoundingClientRect();
+                const x = rect.left + rect.width / 2;
+                const y = rect.top + rect.height / 2;
+                
+                const deltaX = e.clientX - x;
+                const deltaY = e.clientY - y;
+                const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+                
+                if (distance < 100) {
+                    const angle = Math.atan2(deltaY, deltaX);
+                    const force = (100 - distance) / 100;
+                    particle.style.transform = `translate(${Math.cos(angle) * force * 20}px, ${Math.sin(angle) * force * 20}px)`;
+                } else {
+                    particle.style.transform = '';
+                }
+            });
+        });
+
+        // Platform Card 3D Effect
+        document.querySelectorAll('.platform-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+                
+                const rotateY = ((x - rect.width / 2) / rect.width) * 20;
+                const rotateX = ((y - rect.height / 2) / rect.height) * -20;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+            });
+        });
+
+        // Timeline Animation
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.timeline-item').forEach(item => {
+            observer.observe(item);
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+        });
+    </script>
+
+    

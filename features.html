@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .features-container {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, #000000, #121212, #000000);
+            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animated background particles */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: #1DB954;
+            border-radius: 50%;
+            opacity: 0.2;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) rotate(360deg);
+            }
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .features-header {
+            text-align: center;
+            margin-bottom: 6rem;
+            opacity: 0;
+            animation: fadeInUp 1s forwards;
+            position: relative;
+        }
+
+        .features-title {
+            font-size: 4rem;
+            color: #fff;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #1DB954, #2ee59d, #1DB954);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: gradientShift 5s infinite linear;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .features-subtitle {
+            color: #b3b3b3;
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 24px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s forwards;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: float 6s ease-in-out infinite;
+            animation-delay: calc(var(--card-index) * 0.5s);
+        }
+
+        .feature-card:nth-child(2) { animation-delay: 0.2s; }
+        .feature-card:nth-child(3) { animation-delay: 0.4s; }
+        .feature-card:nth-child(4) { animation-delay: 0.6s; }
+        .feature-card:nth-child(5) { animation-delay: 0.8s; }
+        .feature-card:nth-child(6) { animation-delay: 1s; }
+
+        .feature-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            background: rgba(255, 255, 255, 0.07);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4),
+                        0 0 30px rgba(29, 185, 84, 0.2);
+            animation: glowingBorder 2s infinite;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(29, 185, 84, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+
+        .feature-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .feature-icon-wrapper {
+            width: 80px;
+            height: 80px;
+            background: rgba(29, 185, 84, 0.1);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon-wrapper {
+            transform: scale(1.1) rotate(5deg);
+            background: rgba(29, 185, 84, 0.2);
+        }
+
+        .feature-icon-wrapper:hover .feature-icon {
+            animation: rotateIcon 1s ease-in-out infinite;
+        }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            color: #1DB954;
+            transition: all 0.3s ease;
+        }
+
+        /* Rotating icons */
+        @keyframes rotateIcon {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(10deg); }
+            75% { transform: rotate(-10deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        .feature-title {
+            color: #fff;
+            font-size: 1.8rem;
+            margin-bottom: 1.2rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .feature-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: #1DB954;
+            transition: width 0.3s ease;
+        }
+
+        .feature-card:hover .feature-title::after {
+            width: 60px;
+        }
+
+        .feature-description {
+            color: #b3b3b3;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .learn-more {
+            color: #1DB954;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background: rgba(29, 185, 84, 0.1);
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .learn-more:hover {
+            color: #fff;
+            background: #1DB954;
+            gap: 0.8rem;
+            transform: translateX(5px);
+        }
+
+        /* Glowing orb background effect */
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.2;
+            z-index: 0;
+        }
+
+        @keyframes glowingBorder {
+            0% { border-color: rgba(29, 185, 84, 0.1); }
+            50% { border-color: rgba(29, 185, 84, 0.5); }
+            100% { border-color: rgba(29, 185, 84, 0.1); }
+        }
+
+        .orb-1 {
+            top: 10%;
+            left: 10%;
+            width: 300px;
+            height: 300px;
+            background: #1DB954;
+            animation: floatOrb 20s infinite alternate;
+        }
+
+        .orb-2 {
+            bottom: 20%;
+            right: 10%;
+            width: 400px;
+            height: 400px;
+            background: #2ee59d;
+            animation: floatOrb 25s infinite alternate-reverse;
+        }
+
+        @keyframes floatOrb {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(100px, 50px); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .features-title {
+                font-size: 2.8rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .feature-card {
+                padding: 2rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+ 
+    <!-- Navigation HTML -->
+<nav class="navbar">
+    <div class="nav-brand">
+        <img src="img/logo.png" alt="Brand Logo" class="brand-logo">
+        <span class="brand-name"></span>
+    </div>
+
+    <button class="nav-toggle" aria-label="toggle navigation">
+        <span class="hamburger"></span>
+    </button>
+
+    <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="features.html" class="nav-link">Features</a>
+        <a href="pricing.html" class="nav-link">Pricing</a>
+        <a href="about.html" class="nav-link">About</a>
+    </div>
+</nav>
+
+<style>
+/* Navigation Styles */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: #fff;
+}
+
+.brand-logo {
+    height: 40px; /* Adjust based on your logo size */
+    width: auto;
+    object-fit: contain;
+}
+
+.brand-name {
+    font-size: 1.5rem;
+    font-weight: 600;
+    background: linear-gradient(45deg, #1DB954, #2ee59d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.nav-link {
+    color: #b3b3b3;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #1DB954;
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #fff;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.nav-cta {
+    padding: 0.5rem 1.5rem;
+    background: #1DB954;
+    color: #fff;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+}
+
+.nav-cta:hover {
+    background: #2ee59d;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(46, 229, 157, 0.4);
+}
+
+.nav-cta::after {
+    display: none;
+}
+
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    position: relative;
+    z-index: 1001;
+}
+
+.hamburger {
+    display: block;
+    position: relative;
+}
+
+.hamburger,
+.hamburger::before,
+.hamburger::after {
+    width: 2rem;
+    height: 3px;
+    background: #fff;
+    transition: transform 0.3s ease;
+}
+
+.hamburger::before,
+.hamburger::after {
+    content: '';
+    position: absolute;
+    left: 0;
+}
+
+.hamburger::before { top: -8px; }
+.hamburger::after { top: 8px; }
+
+/* Mobile Navigation */
+@media (max-width: 768px) {
+    .nav-toggle {
+        display: block;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100vh;
+        width: 100%;
+        max-width: 400px;
+        background: rgba(0, 0, 0, 0.95);
+        backdrop-filter: blur(10px);
+        flex-direction: column;
+        padding: 6rem 2rem;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+    }
+
+    .nav-links.active {
+        transform: translateX(0);
+    }
+
+    .nav-toggle.active .hamburger {
+        transform: rotate(45deg);
+    }
+
+    .nav-toggle.active .hamburger::before {
+        transform: rotate(90deg);
+        top: 0;
+    }
+
+    .nav-toggle.active .hamburger::after {
+        transform: rotate(90deg);
+        top: 0;
+    }
+
+    .brand-logo {
+        height: 32px; /* Slightly smaller on mobile */
+    }
+}
+</style>
+
+<script>
+// Navigation Toggle
+document.addEventListener('DOMContentLoaded', () => {
+    const navToggle = document.querySelector('.nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+
+    navToggle.addEventListener('click', () => {
+        navToggle.classList.toggle('active');
+        navLinks.classList.toggle('active');
+    });
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!navToggle.contains(e.target) && !navLinks.contains(e.target)) {
+            navToggle.classList.remove('active');
+            navLinks.classList.remove('active');
+        }
+    });
+
+    // Add scroll effect
+    let lastScroll = 0;
+    const navbar = document.querySelector('.navbar');
+
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+
+        if (currentScroll <= 0) {
+            navbar.style.transform = 'translateY(0)';
+            return;
+        }
+
+        if (currentScroll > lastScroll && !navLinks.classList.contains('active')) {
+            // Scrolling down & menu is closed
+            navbar.style.transform = 'translateY(-100%)';
+        } else {
+            // Scrolling up
+            navbar.style.transform = 'translateY(0)';
+        }
+
+        lastScroll = currentScroll;
+    });
+});
+</script>
+    
+
+
+    
+    <div class="features-container">
+        <!-- Animated background effects -->
+        <div class="particles"></div>
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+
+        <div class="features-header">
+            <h1 class="features-title">Premium Features</h1>
+            <p class="features-subtitle">Experience music like never before with our premium features designed to elevate your listening journey</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon-wrapper">
+                    <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 9h18v10a2 2 0 01-2 2H5a2 2 0 01-2-2V9zm0 0V5a2 2 0 012-2h14a2 2 0 012 2v4M12 14v3m0 0v2m0-2h3m-3 0H9"/>
+                    </svg>
+                </div>
+                <h3 class="feature-title">VPN-Free Listening</h3>
+                <p class="feature-description">Enjoy your music without the need of connecting to any VPN. Yes, without any VPN, you read that correctly!!</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon-wrapper">
+                    <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 9h18v10a2 2 0 01-2 2H5a2 2 0 01-2-2V9zm0 0V5a2 2 0 012-2h14a2 2 0 012 2v4M12 14v3m0 0v2m0-2h3m-3 0H9"/>
+                    </svg>
+                </div>
+                <h3 class="feature-title">Ad-Free Listening</h3>
+                <p class="feature-description">Immerse yourself in pure, uninterrupted music. No ads, no interruptions—just you and your favorite tracks flowing seamlessly.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon-wrapper">
+                    <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 8v8m0 0l3-3m-3 3l-3-3M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1M4 8V7a3 3 0 013-3h10a3 3 0 013 3v1"/>
+                    </svg>
+                </div>
+                <h3 class="feature-title">Offline Listening</h3>
+                <p class="feature-description">Take your music anywhere. Download your favorite songs and playlists to enjoy high-quality audio, even without an internet connection.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon-wrapper">
+                    <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
+                        <path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                </div>
+                <h3 class="feature-title">On-Demand Playback</h3>
+                <p class="feature-description">Play any song, any time, on any device. Skip tracks, repeat favorites, and curate your perfect listening experience without limitations.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon-wrapper">
+                    <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M9.464 8.464a5 5 0 000 7.072m-2.828-9.9a9 9 0 000 12.728"/>
+                    </svg>
+                </div>
+                <h3 class="feature-title">Enhanced Audio Quality</h3>
+                <p class="feature-description">Experience music in stunning clarity with high-fidelity streaming up to 320 kbps. Hear every detail exactly as the artists intended.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon-wrapper">
+                    <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
+                    </svg>
+                </div>
+                <h3 class="feature-title">Spotify Connect</h3>
+                <p class="feature-description">Switch seamlessly between devices without missing a beat. Start on your phone, continue on your laptop, and finish on your smart speaker.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon-wrapper">
+                    <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/>
+                    </svg>
+                </div>
+                <h3 class="feature-title">Personalized Playlists</h3>
+                <p class="feature-description">Discover new music tailored to your taste with custom playlists like Discover Weekly and Release Radar, updated regularly just for you.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create animated background particles
+const particles = document.querySelector('.particles');
+for (let i = 0; i < 50; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    
+    // Random size between 2px and 6px
+    const size = Math.random() * 4 + 2;
+    particle.style.width = `${size}px`;
+    particle.style.height = `${size}px`;
+    
+    // Random starting position
+    const startX = Math.random() * 100;
+    const startY = Math.random() * 100;
+    particle.style.left = `${startX}%`;
+    particle.style.top = `${startY}%`;
+    
+    // Random movement distance (translation)
+    const translateX = Math.random() * 400 - 200; // -200px to +200px
+    const translateY = Math.random() * 400 - 200; // -200px to +200px
+    particle.style.setProperty('--tx', `${translateX}px`);
+    particle.style.setProperty('--ty', `${translateY}px`);
+    
+    // Random animation duration and delay
+    const duration = Math.random() * 20 + 10; // 10-30 seconds
+    const delay = Math.random() * -20; // Random start time
+    particle.style.animationDuration = `${duration}s`;
+    particle.style.animationDelay = `${delay}s`;
+    
+    // Random initial opacity
+    particle.style.opacity = Math.random() * 0.3 + 0.1; // 0.1-0.4
+    
+    // Add particle to container
+    particles.appendChild(particle);
+}
+
+// Optional: Add resize handler to maintain particle density
+window.addEventListener('resize', () => {
+    // Clear existing particles
+    particles.innerHTML = '';
+    
+    // Recalculate number of particles based on screen size
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    const area = width * height;
+    const particleCount = Math.floor(area / 20000); // Adjust density as needed
+    
+    // Recreate particles
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        
+        const size = Math.random() * 4 + 2;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        
+        const startX = Math.random() * 100;
+        const startY = Math.random() * 100;
+        particle.style.left = `${startX}%`;
+        particle.style.top = `${startY}%`;
+        
+        const translateX = Math.random() * 400 - 200;
+        const translateY = Math.random() * 400 - 200;
+        particle.style.setProperty('--tx', `${translateX}px`);
+        particle.style.setProperty('--ty', `${translateY}px`);
+        
+        const duration = Math.random() * 20 + 10;
+        const delay = Math.random() * -20;
+        particle.style.animationDuration = `${duration}s`;
+        particle.style.animationDelay = `${delay}s`;
+        
+        particle.style.opacity = Math.random() * 0.3 + 0.1;
+        
+        particles.appendChild(particle);
+    }
+});
+</script>
+
+<script>
+    // Animate elements when they come into view
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.3
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+    
+    // Observe all feature cards
+    document.querySelectorAll('.feature-card').forEach((card, index) => {
+        card.style.setProperty('--card-index', index);
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(50px)';
+        observer.observe(card);
+    });
+    
+    // Add mousemove parallax effect to feature cards
+    document.addEventListener('mousemove', (e) => {
+        const cards = document.querySelectorAll('.feature-card');
+        const mouseX = e.clientX / window.innerWidth - 0.5;
+        const mouseY = e.clientY / window.innerHeight - 0.5;
+    
+        cards.forEach(card => {
+            const rect = card.getBoundingClientRect();
+            const cardX = rect.left + rect.width / 2;
+            const cardY = rect.top + rect.height / 2;
+    
+            const angleX = (cardY - e.clientY) * 0.01;
+            const angleY = (cardX - e.clientX) * -0.01;
+    
+            card.style.transform = `rotateX(${angleX}deg) rotateY(${angleY}deg)`;
+        });
+    });
+    
+    // Add particle burst effect on click
+    document.addEventListener('click', (e) => {
+        const burst = document.createElement('div');
+        burst.className = 'click-burst';
+        burst.style.left = e.clientX + 'px';
+        burst.style.top = e.clientY + 'px';
+        document.body.appendChild(burst);
+    
+        setTimeout(() => {
+            document.body.removeChild(burst);
+        }, 1000);
+    });
+    
+    // Add this CSS for the click burst effect
+    const style = document.createElement('style');
+    style.textContent = `
+        .click-burst {
+            position: fixed;
+            pointer-events: none;
+            width: 30px;
+            height: 30px;
+            background: radial-gradient(circle, #1DB954 0%, transparent 70%);
+            border-radius: 50%;
+            animation: burst 1s ease-out forwards;
+        }
+    
+        @keyframes burst {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+    `;
+    document.head.appendChild(style);
+    </script>
+
+    
+
+
+
+
+
+
